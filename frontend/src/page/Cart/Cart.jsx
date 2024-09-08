@@ -21,6 +21,7 @@ const Cart = () => {
           <p>Xóa</p>
         </div>
         <br />
+        <hr />
 
         {food_list.map((item, index) => {
           if (cartItems[item._id] > 0) {
@@ -29,9 +30,9 @@ const Cart = () => {
                 <div className="cart-items-title cart-items-item">
                   <img src={url+"/images/"+item.image} alt="" />
                   <p>{item.name}</p>
-                  <p>{item.price}VNĐ</p>
+                  <p>{parseInt(item.price).toLocaleString('vi-VN')}đ</p>
                   <p>{cartItems[item._id]}</p>
-                  <p>{item.price * cartItems[item._id]}VNĐ</p>
+                  <p>{parseInt(item.price * cartItems[item._id]).toLocaleString('vi-VN')}đ</p>
                   <p onClick={() => removeFromCart(item._id)} className='cross'>x</p>
                 </div>
                 <hr />
@@ -46,17 +47,17 @@ const Cart = () => {
           <div>
             <div className="cart-total-details">
               <p>Giá tiền</p>
-              <p>{getTotalCartAmount()}VNĐ</p>
+              <p>{parseInt(getTotalCartAmount()).toLocaleString('vi-VN')}đ</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Phí vận chuyển</p>
-              <p>{30000}VNĐ</p>
+              <p>{parseInt(30000).toLocaleString('vi-VN')}đ</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Tổng tiền</p>
-              <p>{getTotalCartAmount()+30000}VNĐ</p>
+              <p>{parseInt(getTotalCartAmount()+30000).toLocaleString('vi-VN')}đ</p>
             </div>
           </div>
           <button onClick={()=>navigate('/order')}>THANH TOÁN NGAY</button>

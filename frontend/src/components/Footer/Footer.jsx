@@ -28,12 +28,12 @@ const Footer = () => {
                 <h2>LIÊN HỆ</h2>
                 <ul>
                     <li>+84-326-643-462</li>
-                    <li>contact@tomato.com</li>
+                    <li>Cataclysm@gmail.com</li>
                 </ul>
             </div>
         </div>
         <hr />
-        <p className="footer-copyright">Copyright 2024 © Tomato.com - All Right Reserved.</p>
+        <p className="footer-copyright">Copyright 2024 © Tasty.com - All Right Reserved.</p>
     </div>
   )
 }

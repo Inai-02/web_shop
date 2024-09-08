@@ -1,7 +1,7 @@
 .header {
     height: 34vw;
     margin: 30px auto;
-    background: url('/header_img.png') no-repeat;
+    background: url('/rounded-in-photoretrica.png') no-repeat;
     background-size: contain;
     position: relative;
 }
@@ -31,12 +31,16 @@
 
 .header-content button {
     border: none;
-    color: #747474;
+    color: tomato;
     font-weight: 500;
     padding: 1vw 2.3vw;
     background-color: white;
     font-size: max(1vw, 13px);
     border-radius: 50px;
+}
+
+.header-content button:hover {
+    background-color: #fff2ef;
 }
 
 @media (max-width: 1050px) {

@@ -1,15 +1,15 @@
 import basket_icon from './basket_icon.png'
-import logo from './logo.png'
-import header_img from './header_img.png'
+import logo from './logo1.png'
+import header_img from './rounded-in-photoretrica.png'
 import search_icon from './search_icon.png'
 import menu_1 from './menu_1.png'
-import menu_2 from './menu_2.png'
-import menu_3 from './menu_3.png'
+import menu_2 from './menu_10.png'
+import menu_3 from './menu_13.png'
 import menu_4 from './menu_4.png'
 import menu_5 from './menu_5.png'
-import menu_6 from './menu_6.png'
+import menu_6 from './menu_12.png'
 import menu_7 from './menu_7.png'
-import menu_8 from './menu_8.png'
+import menu_8 from './menu_14.png'
 
 import food_1 from './food_1.png'
 import food_2 from './food_2.png'
@@ -88,11 +88,11 @@ export const menu_list = [
         menu_image: menu_1
     },
     {
-        menu_name: "Rolls",
+        menu_name: "Hamburger",
         menu_image: menu_2
     },
     {
-        menu_name: "Deserts",
+        menu_name: "Đồ uống",
         menu_image: menu_3
     },
     {
@@ -100,11 +100,11 @@ export const menu_list = [
         menu_image: menu_4
     },
     {
-        menu_name: "Cake",
+        menu_name: "Bánh ngọt",
         menu_image: menu_5
     },
     {
-        menu_name: "Pure Veg",
+        menu_name: "Pizza",
         menu_image: menu_6
     },
     {
@@ -112,7 +112,7 @@ export const menu_list = [
         menu_image: menu_7
     },
     {
-        menu_name: "Noodles",
+        menu_name: "Kem",
         menu_image: menu_8
     }]
 

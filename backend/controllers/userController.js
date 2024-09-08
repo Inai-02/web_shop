@@ -11,13 +11,13 @@ const loginUser = async (req, res) => {
         const user = await userModel.findOne({email})
 
         if (!user) {
-            return res.json({success: false, message: "User Doesn't exist"})
+            return res.json({success: false, message: "Người dùng không tồn tại"})
         }
 
         const isMatch = await bcrypt.compare(password, user.password)
 
         if (!isMatch) {
-            return res.json({success: false, message: "Invalid credentials"})
+            return res.json({success: false, message: "Thông tin đăng nhập không hợp lệ, mật khẩu không chính xác"})
         }
 
         const token = createToken(user._id)
@@ -40,16 +40,16 @@ const registerUser = async (req, res) => {
         //checking is user already exists
         const exists = await userModel.findOne({email})
         if (exists) {
-            return res.json({success: false, message:"User already exists"})
+            return res.json({success: false, message:"Tài khoản email này đã được đăng ký"})
         }
 
         //validating email format & strong password 
         if (!validator.isEmail(email)) {
-            return res.json({success: false, message:"Please enter a valid email"})
+            return res.json({success: false, message:"Vui lòng nhập email hợp lệ"})
         }
 
         if (password.length<8) {
-            return res.json({success: false, message:"Please enter a strong password"})
+            return res.json({success: false, message:"Vui lòng sử dụng mật khẩu có độ dài ít nhất 8 ký tự"})
         }
 
         //hasing user password

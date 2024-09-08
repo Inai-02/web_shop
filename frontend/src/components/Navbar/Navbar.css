@@ -6,7 +6,7 @@
 }
 
 .navbar .logo {
-    width: 150px;
+    width: 200px;
 }
 
 .navbar-menu {
@@ -38,10 +38,10 @@
     background-color: #fff4f2;
 }
 
-.navbar .active {
+/* .navbar .active {
     padding-bottom: 2px;
     border-bottom: 2px solid #49557e;
-}
+} */
 
 .navbar li {
     cursor: pointer;
@@ -111,6 +111,7 @@
 }
 
 .navbar-profile:hover .nav-profile-dropdown {
+    width: 160px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -143,3 +144,30 @@
     }
     
 }
+
+.hvr-underline-from-left {
+    box-shadow: 0 0 1px transparent;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    vertical-align: middle;
+}
+.hvr-underline-from-left:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    right: 100%;
+    bottom: 0;
+    background: #49557e;
+    height: 2px;
+    transition-property: right;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
+}
+.hvr-underline-from-left:hover:before, .hvr-underline-from-left:focus:before, .hvr-underline-from-left:active:before {
+    right: 0;
+}
+

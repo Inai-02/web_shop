@@ -5,7 +5,7 @@ import { assets } from '../../assets/assets'
 const AppDowload = () => {
   return (
     <div className='app-dowload' id='app-dowload'>
-        <p>Để có một trải nghiệm tốt nhất, mời bạn dowload <br /> Tomato App</p>
+        <p>Để có một trải nghiệm tốt nhất, mời bạn tải xuống <br /> ứng dụng</p>
         <div className="app-dowload-platforms">
             <img src={assets.play_store} alt="" />
             <img src={assets.app_store} alt="" />

@@ -24,10 +24,10 @@ const Navbar = ({setShowLogin}) => {
             <img src={assets.logo} alt="" className="logo" />
         </Link>
         <ul className="navbar-menu">
-            <Link to='/' onClick={()=>setMenu("home")} className={menu==="home"?"active":""}>trang chủ</Link>
-            <a href='#explore-menu' onClick={()=>setMenu("menu")} className={menu==="menu"?"active":""}>menu</a>
-            <a href='#app-dowload' onClick={()=>setMenu("mobile-app")} className={menu==="mobile-app"?"active":""}>ứng dụng</a>
-            <a href='#footer' onClick={()=>setMenu("contact-us")} className={menu==="contact-us"?"active":""}>liên hệ</a>
+            <Link to='/' onClick={()=>setMenu("home")} className={menu === "home" ? "active" : "hvr-underline-from-left"}>Trang chủ</Link>
+            <a href='#explore-menu' onClick={()=>setMenu("menu")} className={menu === "menu" ? "active" : "hvr-underline-from-left"}>Menu</a>
+            <a href='#app-dowload' onClick={()=>setMenu("mobile-app")} className={menu === "mobile-app" ? "active" : "hvr-underline-from-left"}>Ứng dụng</a>
+            <a href='#footer' onClick={()=>setMenu("contact-us")} className={menu === "contact-us" ? "active" : "hvr-underline-from-left"}>Liên hệ</a>
         </ul>
         <div className="navbar-right">
             <img src={assets.search_icon} alt="" />
@@ -37,13 +37,13 @@ const Navbar = ({setShowLogin}) => {
                 </Link>
                 <div className={getTotalCartAmount()=== 0?"":"dot"}></div>
             </div>
-            {!token?<button onClick={()=>setShowLogin(true)}>đăng nhập</button>
+            {!token?<button onClick={()=>setShowLogin(true)}>Đăng nhập</button>
             :<div className='navbar-profile'>
                 <img src={assets.profile_icon} alt="" />
                 <ul className="nav-profile-dropdown">
-                    <li><img src={assets.bag_icon} alt="" />Orders</li>
+                    <li onClick={()=>navigate('/myorders')}><img src={assets.bag_icon} alt="" />Đơn hàng</li>
                     <hr />
-                    <li onClick={logout}><img src={assets.logout_icon} alt="" /><p>Logout</p></li>
+                    <li onClick={logout}><img src={assets.logout_icon} alt="" /><p>Đăng xuất</p></li>
                 </ul>
                 </div>}
             
