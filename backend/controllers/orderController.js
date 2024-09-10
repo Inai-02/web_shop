@@ -9,7 +9,7 @@ const partnerCode = process.env.partnerCode;
 const accessKey = process.env.accessKey;
 const secretKey = process.env.secretkey;
 const redirectUrl = "http://localhost:5173/verify?success=true";
-const ipnUrl = "http://localhost:5173/verify?success=false";
+const ipnUrl = "http://localhost:5173/verify?success=true";
 // const redirectUrl = "http://localhost:5173/myorders";
 // const ipnUrl = "http://localhost:5173/myorders";
 
