@@ -3,13 +3,19 @@ import userModel from "../models/userModel.js";
 import axios from 'axios';
 import crypto from 'crypto';
 
+
 const momoEndpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
 const partnerCode = process.env.partnerCode;
 const accessKey = process.env.accessKey;
 const secretKey = process.env.secretkey;
-// const redirectUrl = "http://localhost:5173/verify?success=true";
-const redirectUrl = "http://localhost:5173/myorders";
+const redirectUrl = "http://localhost:5173/verify?success=true";
 const ipnUrl = "http://localhost:5173/verify?success=false";
+// const redirectUrl = "http://localhost:5173/myorders";
+// const ipnUrl = "http://localhost:5173/myorders";
+
+// const redirectUrl = "http://localhost:5173/verify?orderId={orderId}";
+// const ipnUrl = "http://localhost:5173/verify?orderId={orderId}";
+
 
 // placing user order for frontend
 const placeOrder = async (req, res) => {
@@ -31,7 +37,7 @@ const placeOrder = async (req, res) => {
         const orderId = newOrder._id.toString();
         const orderInfo = `Payment for order ${orderId}`;
         const amount = req.body.amount;
-        const requestType = "captureWallet";
+        const requestType = "payWithMethod";
 
         const rawSignature = `accessKey=${accessKey}&amount=${amount}&extraData=&ipnUrl=${ipnUrl}&orderId=${orderId}&orderInfo=${orderInfo}&partnerCode=${partnerCode}&redirectUrl=${redirectUrl}&requestId=${requestId}&requestType=${requestType}`;
         const signature = crypto.createHmac('sha256', secretKey).update(rawSignature).digest('hex');
@@ -66,26 +72,34 @@ const placeOrder = async (req, res) => {
 }
 
 const verifyOrder = async (req, res) => {
-    const {orderId, success} = req.body
+    const { orderId, resultCode } = req.body;
+    
+    console.log("Received data from IPN:", req.body);
+    console.log("OrderId:", orderId);
+
     try {
-        if (success === "true") {
-            await orderModel.findByIdAndUpdate(orderId, {payment: true})
-            res.json({success: true, message: "Paid"})
-        }
-        else {
-            await orderModel.findByIdAndUpdate(orderId)
-            res.json({success: false, message: "Not Paid"})
+        if (resultCode == 0) {
+            await orderModel.findByIdAndUpdate(orderId, { payment: true });
+            res.json({ success: true, message: "Paid" });
+        } else {
+            await orderModel.findByIDAndDelete(orderId, { payment: false });
+            res.json({ success: false, message: "Not Paid" });
         }
     } catch (error) {
-        console.log(error)
-        res.json({success: false, message: "ERROR"})
+        console.log("Error while verifying payment:", error);
+        res.json({ success: false, message: "ERROR" });
     }
-}
+};
+
 
 // const verifyOrder = async (req, res) => {
-//     const { orderId, resultCode } = req.body; 
+//     const { orderId, resultCode } = req.body;
+
+
+//     // console.log("Result Code:", resultCode);
+
 //     try {
-//         if (resultCode === 0) {  
+//         if (parseInt(resultCode) === 0) {  // Đảm bảo so sánh đúng kiểu số
 //             await orderModel.findByIdAndUpdate(orderId, { payment: true });
 //             res.json({ success: true, message: "Paid" });
 //         } else {
@@ -93,10 +107,37 @@ const verifyOrder = async (req, res) => {
 //             res.json({ success: false, message: "Not Paid" });
 //         }
 //     } catch (error) {
-//         console.log(error);
+//         console.log("Error while verifying payment:", error);
 //         res.json({ success: false, message: "ERROR" });
 //     }
-// }
+// };
+
+// const verifyOrder = async (req, res) => {
+//     const { orderId, resultCode } = req.body;
+
+//     try {
+//         // Chuyển đổi orderId thành ObjectId hợp lệ
+//         const validOrderId = mongoose.Types.ObjectId.isValid(orderId) ? mongoose.Types.ObjectId(orderId) : null;
+
+//         if (!validOrderId) {
+//             return res.json({ success: false, message: "Invalid order ID" });
+//         }
+
+//         if (parseInt(resultCode) === 0) {  
+//             await orderModel.findByIdAndUpdate(validOrderId, { payment: true });
+//             console.log("Update result:", result);
+//             res.json({ success: true, message: "Paid" });
+//         } else {
+//             await orderModel.findByIdAndUpdate(validOrderId, { payment: false });
+//             res.json({ success: false, message: "Not Paid" });
+//         }
+//     } catch (error) {
+//         console.log("Error while verifying payment:", error);
+//         res.json({ success: false, message: "ERROR" });
+//     }
+// };
+
+
 
 
 
@@ -106,7 +147,7 @@ const userOrders = async (req, res) => {
     try {
         const orders = await orderModel.find({
             userId: req.body.userId,
-            
+            payment: true
         });
         res.json({ success: true, data: orders });
     } catch (error) {
@@ -119,7 +160,9 @@ const userOrders = async (req, res) => {
 //Liệt kê đơn hàng cho quản trị viên
 const listOrders = async (req, res) => {
     try {
-        const orders = await orderModel.find({})
+        const orders = await orderModel.find({
+            payment: true
+        })
         res.json({success: true, data: orders})
     } catch (error) {
         console.log(error);
